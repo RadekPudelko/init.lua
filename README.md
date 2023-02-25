@@ -7,10 +7,10 @@ Clone this to `~/.config/nvim`
 Run the Packer quickstart install: https://github.com/wbthomason/packer.nvim
 
 Make sure to install:
->> bear: https://github.com/rizsotto/Bear
->> llvm: https://github.com/llvm
->> ripgrep: https://github.com/BurntSushi/ripgrep
->> arm-none-eabi-gcc: https://formulae.brew.sh/cask/gcc-arm-embedded or thru Particle workbench (see device os folder)
+> bear: https://github.com/rizsotto/Bear
+> llvm: https://github.com/llvm
+> ripgrep: https://github.com/BurntSushi/ripgrep
+> arm-none-eabi-gcc: https://formulae.brew.sh/cask/gcc-arm-embedded or thru Particle workbench (see device os folder)
 
 Particle Device OS is managed by Particle Workbench extension in VSCode
 
