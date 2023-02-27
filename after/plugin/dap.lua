@@ -24,10 +24,11 @@ dap.configurations.python = {
     request = 'launch';
     name = "Django";
     program ="${workspaceFolder}/manage.py";
-    args = {"runserver"};
+    args = {"runserver", "--noreload"};
     pythonPath = function()
         local ok, mypath = pcall(myvenv)
         if ok then
+            print(mypath)
             mypath = string.sub(mypath, 19, #mypath - 1) .. '/bin/python'
         end
         if ok and vim.fn.executable(mypath) then
@@ -38,48 +39,6 @@ dap.configurations.python = {
     end;
     django = true;
   },
-  -- {
-  --   type = 'python';
-  --   request = 'launch';
-  --   name = "Launch file";
-  --   program = function()
-  --       if vim.loop.fs_stat('manage.py') then
-  --           return "${workspaceFolder}/manage.py"
-  --       else
-  --           return "${file}"
-  --       end
-  --   end;
-  --
-  --   args = function()
-  --       if vim.loop.fs_stat('manage.py') then
-  --           return {"runserver"}
-  --       else
-  --           return {}
-  --       end
-  --   end;
-  --
-  --
-  --   pythonPath = function()
-  --       local ok, mypath = pcall(myvenv)
-  --       if ok then
-  --           mypath = string.sub(mypath, 19, #mypath - 1) .. '/bin/python'
-  --       end
-  --       if ok and vim.fn.executable(mypath) then
-  --           return mypath
-  --       else
-  --           return '/opt/homebrew/bin/python3'
-  --       end
-  --   end;
-  --
-  --   django = function()
-  --       if vim.loop.fs_stat('manage.py') then
-  --           return true;
-  --       else
-  --           return false;
-  --       end
-  --   end;
-  --
-  -- },
 }
 vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end)
 vim.keymap.set('n', '<Leader>ds', function() require('dap').step_over() end)
@@ -92,3 +51,4 @@ vim.keymap.set('n', '<Leader>dt', function() require('dap').terminate() end)
 
 -- print(val)
 require("dapui").setup()
+-- vim.keymap.set('n', '<Leader>du', function() require('dapui').close() end)
