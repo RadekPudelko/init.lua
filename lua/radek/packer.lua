@@ -81,5 +81,8 @@ return require('packer').startup(function(use)
     --use('quangnguyen30192/cmp-nvim-tags')
     --
     use('lewis6991/gitsigns.nvim')
+
+    use('mfussenegger/nvim-dap')
+    use('mfussenegger/nvim-dap-ui')
 end)
 

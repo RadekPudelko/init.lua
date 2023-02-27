@@ -1,3 +1,4 @@
+--https://neovim.io/doc/user/lsp.html
 local log = require("plenary.log").new({
     plugin = "radek-lsp",
     level = "debug",
@@ -199,6 +200,6 @@ vim.diagnostic.config({
 })
 -- Open floag with with leader d
 vim.api.nvim_set_keymap(
-  'n', '<Leader>d', ':lua vim.diagnostic.open_float()<CR>', 
+  'n', '<Leader>ld', ':lua vim.diagnostic.open_float()<CR>', 
   { noremap = true, silent = true }
 )

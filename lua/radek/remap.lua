@@ -47,7 +47,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- Gives file execute permission
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 -- Opens list of open buffers and lets you enter # to switch
-vim.keymap.set("n", "<leader>b", [[:buffers<CR>:b<Space>]])
+-- vim.keymap.set("n", "<leader>b", [[:buffers<CR>:b<Space>]])
 
 -- Split navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h")
@@ -64,5 +64,5 @@ vim.keymap.set("n", "<C-l>", "<C-w>l")
 -- vim.keymap.set("n", "<C-l>", "<C-w>l")
 
 -- Navigate buffers
-vim.keymap.set("n", "<S-l>", ":bnext<CR>")
-vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
+-- vim.keymap.set("n", "<S-l>", ":bnext<CR>")
+-- vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
