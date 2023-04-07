@@ -84,5 +84,7 @@ return require('packer').startup(function(use)
 
     use('mfussenegger/nvim-dap')
     use('mfussenegger/nvim-dap-ui')
+    use('simrat39/rust-tools.nvim')
+    use("nvim-treesitter/nvim-treesitter-context");
 end)
 

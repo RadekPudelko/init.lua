@@ -9,7 +9,12 @@ require("gruvbox").setup({
     undercurl = true,
     underline = true,
     bold = true,
-    italic = true,
+    italic = {
+        strings = true,
+        comments = true,
+        operators = false,
+        folds = true,
+    },
     strikethrough = true,
     invert_selection = false,
     invert_signs = false,
@@ -28,10 +33,10 @@ function ColorMyPencils(color)
 	vim.cmd.colorscheme(color)
 
 	-- Transparent background
-	-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 -- Call with :lua ColorMyPencils
-ColorMyPencils("gruvbox")
--- ColorMyPencils("rose-pine")
+-- ColorMyPencils("gruvbox")
+ColorMyPencils("rose-pine")

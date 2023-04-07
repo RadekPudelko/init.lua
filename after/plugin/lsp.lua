@@ -107,6 +107,18 @@ end)
 
 lsp.setup()
 
+local rust_lsp = lsp.build_options('rust_analyzer', {
+  single_file_support = false,
+  on_attach = function(client, bufnr)
+    print('hello rust-tools')
+  end,
+  inlay_hints = {
+      auto = true,
+  },
+})
+
+require('rust-tools').setup({server = rust_lsp})
+
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -127,23 +139,23 @@ local cmp_config = lsp.defaults.cmp_config({
         {
            name = 'nvim_lsp', keyword_length=2,
            -- Only suggest variables for function arguments Does not work
-           entry_filter = function(entry, ctx)
-               local kind = entry:get_kind()
-               if not pcall(ts_utils.get_node_at_cursor():type()) then
-                   return true
-                end
-               local node = ts_utils.get_node_at_cursor():type()
-               --log.debug(node)
-               if node == "argument_list" then
-                   --https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/ see CompletionItemKind
-                   if kind == 6 then
-                       return true
-                   else
-                       return false
-                   end
-               end
-               return true
-           end
+           -- entry_filter = function(entry, ctx)
+           --     local kind = entry:get_kind()
+           --     if not pcall(ts_utils.get_node_at_cursor():type()) then
+           --         return true
+           --      end
+           --     local node = ts_utils.get_node_at_cursor():type()
+           --     --log.debug(node)
+           --     if node == "argument_list" then
+           --         --https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/ see CompletionItemKind
+           --         if kind == 6 then
+           --             return true
+           --         else
+           --             return false
+           --         end
+           --     end
+           --     return true
+           -- end
         },
         { name = 'tags' },
         { name = 'buffer', keyword_length=5},
