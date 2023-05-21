@@ -27,8 +27,13 @@ return require('packer').startup(function(use)
     use({"sainnhe/sonokai",
         as = 'sonokai',
     })
-	--Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-	use('nvim-treesitter/nvim-treesitter', {use = ':TSUpdate'})
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end
+    }
     use('nvim-treesitter/playground')
 	--Lets you mark and switch thru marked files quickly
 	use('theprimeagen/harpoon')

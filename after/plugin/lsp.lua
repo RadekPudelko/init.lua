@@ -19,19 +19,20 @@ lsp.ensure_installed({
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('lua-language-server', {
-    settings = {
-        Lua = {
-            --runtime = {
-            ---- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            --version = 'LuaJIT',
-            --},
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
+lsp.nvim_workspace()
+-- lsp.configure('lua-language-server', {
+--     settings = {
+--         Lua = {
+--             --runtime = {
+--             ---- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--             --version = 'LuaJIT',
+--             --},
+--             diagnostics = {
+--                 globals = { 'vim' }
+--             }
+--         }
+--     }
+-- })
 
 --.clangd user configs at ~/Library/Preferences/clangd/config.yaml
 lsp.configure('clangd', {
