@@ -42,8 +42,8 @@ lsp.configure('clangd', {
         "--function-arg-placeholders",
         "--header-insertion=never",
         "--all-scopes-completion=0",
-        --"--query-driver=/Users/radek/.particle/toolchains/gcc-arm/10.2.1/bin/arm-none-eabi-gcc",
-        "--query-driver=/opt/homebrew/bin/arm-none-eabi-gcc",
+        "--query-driver=/Users/radek/.particle/toolchains/gcc-arm/10.2.1/bin/arm-none-eabi-gcc",
+        -- "--query-driver=/opt/homebrew/bin/arm-none-eabi-gcc",
         --"--compile-commands-dir=/Users/radek/CodeRP/cpp/QFile/QFileTest",
         --"--query-driver=/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/bin/arm-none-eabi-gcc",
         --"--background-index",
@@ -128,7 +128,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
   ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  -- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+  ['<CR>'] = cmp.mapping.confirm({ select = true }),
   ["<C-Space>"] = cmp.mapping.complete(),
 })
 
@@ -158,7 +159,7 @@ local cmp_config = lsp.defaults.cmp_config({
            --     return true
            -- end
         },
-        { name = 'tags' },
+        -- { name = 'tags' },
         { name = 'buffer', keyword_length=5},
         { name = 'luasnip', keyword_length=2},
         
