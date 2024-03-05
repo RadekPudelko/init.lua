@@ -6,8 +6,14 @@ dap.adapters.python = {
   args = { '-m', 'debugpy.adapter' };
 }
 
-function myvenv()
-    return vim.api.nvim_exec('!pipenv --venv', true)
+local function myPython()
+    local obj = vim.system({"pipenv", "--venv"}, {text = true}):wait()
+    local myPath = '/opt/homebrew/bin/python3'
+    if obj.code == 0 then
+        myPath = string.gsub(obj.stdout, "\n", "") .. '/bin/python3'
+    end
+    print(myPath)
+    return myPath
 end
 
 -- h dap-configurations
@@ -17,7 +23,7 @@ dap.configurations.python = {
     request = 'launch';
     name = "Launch file";
     program = "${file}";
-    pythonPath = '/opt/homebrew/bin/python3';
+    pythonPath = myPython;
   },
   {
     type = 'python';
@@ -25,21 +31,12 @@ dap.configurations.python = {
     name = "Django";
     program ="${workspaceFolder}/manage.py";
     args = {"runserver", "--noreload"};
-    pythonPath = function()
-        local ok, mypath = pcall(myvenv)
-        if ok then
-            print(mypath)
-            mypath = string.sub(mypath, 19, #mypath - 1) .. '/bin/python'
-        end
-        if ok and vim.fn.executable(mypath) then
-            return mypath
-        else
-            return '/opt/homebrew/bin/python3'
-        end
-    end;
+    pythonPath = myPython;
     django = true;
   },
 }
+vim.keymap.set('n', '<Leader>du', function() require('dapui').close() end)
+
 vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end)
 vim.keymap.set('n', '<Leader>ds', function() require('dap').step_over() end)
 vim.keymap.set('n', '<Leader>di', function() require('dap').step_into() end)
@@ -49,6 +46,30 @@ vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
 vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 vim.keymap.set('n', '<Leader>dt', function() require('dap').terminate() end)
 
--- print(val)
-require("dapui").setup()
--- vim.keymap.set('n', '<Leader>du', function() require('dapui').close() end)
+local dap_ui = require("dapui")
+
+dap_ui.setup({
+    sidebar = {
+    elements = {
+      "stacks",
+      "scopes",
+    },
+    size = 40,
+    position = "left",
+  },
+  tray = {
+    elements = {
+      "repl",
+    },
+    size = 10,
+    position = "bottom",
+  },
+})
+
+-- Start debugging session
+vim.keymap.set("n", "<Leader>ds", function()
+  dap.continue()
+  -- dap_ui.toggle({})
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>=", false, true, true), "n", false) -- Spaces buffers evenly
+end)
+

@@ -12,11 +12,11 @@ local lsp = require("lsp-zero").preset({
 
 --lsp.preset("recommended")
 
-lsp.ensure_installed({
-  'tsserver',
-  'eslint',
-  'rust_analyzer',
-})
+-- lsp.ensure_installed({
+--   'tsserver',
+--   'eslint',
+--   'rust_analyzer',
+-- })
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
@@ -33,23 +33,53 @@ lsp.nvim_workspace()
 --         }
 --     }
 -- })
+--
+
+local clangdCmd = {
+    "clangd",
+    --"--completion-style=detailed",
+    "--function-arg-placeholders",
+    "--header-insertion=never",
+    "--all-scopes-completion=0",
+    -- "--query-driver=/Users/radek/.particle/toolchains/gcc-arm/10.2.1/bin/arm-none-eabi-gcc",
+    -- "--query-driver=/Users/radek/.particle/toolchains/gcc-arm/9.2.1/bin/arm-none-eabi-gcc",
+    -- "--query-driver=/opt/homebrew/bin/arm-none-eabi-gcc",
+    --"--compile-commands-dir=/Users/radek/CodeRP/cpp/QFile/QFileTest",
+    --"--query-driver=/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/bin/arm-none-eabi-gcc",
+    --"--background-index",
+    --"-log=verbose"
+}
+
+-- Recursivly searches for a file starting at cwd and working up to root
+-- Returns path or nill
+local function findFile(file)
+    local current_dir = vim.fn.getcwd()
+
+    while current_dir ~= "/" do
+        local project_file = current_dir .. "/" .. file
+        if vim.fn.filereadable(project_file) == 1 then
+            return project_file
+        end
+
+        current_dir = vim.fn.fnamemodify(current_dir, ":h")
+    end
+
+    return nil  -- Not found
+end
+
+
+if findFile("project.properties") then
+    table.insert(clangdCmd,"--query-driver=/Users/radek/.particle/toolchains/gcc-arm/10.2.1/bin/arm-none-eabi-gcc")
+    -- table.insert(clangdCmd,"--query-driver=/Users/radek/.particle/toolchains/gcc-arm/9.2.1/bin/arm-none-eabi-gcc")
+    print("Particle Project")
+else
+    print("other")
+end
 
 --.clangd user configs at ~/Library/Preferences/clangd/config.yaml
 lsp.configure('clangd', {
-    cmd = {
-        "clangd",
-        --"--completion-style=detailed",
-        "--function-arg-placeholders",
-        "--header-insertion=never",
-        "--all-scopes-completion=0",
-        "--query-driver=/Users/radek/.particle/toolchains/gcc-arm/10.2.1/bin/arm-none-eabi-gcc",
-        -- "--query-driver=/opt/homebrew/bin/arm-none-eabi-gcc",
-        --"--compile-commands-dir=/Users/radek/CodeRP/cpp/QFile/QFileTest",
-        --"--query-driver=/opt/homebrew/Cellar/arm-none-eabi-gcc/10.3-2021.07/gcc/bin/arm-none-eabi-gcc",
-        --"--background-index",
-        --"-log=verbose"
-    },
-    on_attach = function(client, bufnr)
+    cmd = clangdCmd,
+    on_attach = function(client, bufnr) 
         vim.keymap.set("n", "<leader>c", [[:ClangdSwitchSourceHeader<CR>]], {buffer=bufnr})
     end,
     -- Switch between .cpp and .h

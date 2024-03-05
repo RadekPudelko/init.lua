@@ -43,7 +43,5 @@ vim.api.nvim_create_autocmd("FileType", { pattern = "arduino", command = [[set f
 
 vim.opt.pumheight = 15
 
--- vim.opt.laststatus=3
--- vim.api.nvim_set_hl(0, "WinSeparator", {guibg=None})
--- vim.opt.winbar="%m %f"
---
+-- File path of current buffer added to status line
+vim.opt.statusline = vim.opt.statusline + "%F"
