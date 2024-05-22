@@ -4,8 +4,6 @@ My neovim config, currently set for embedded development for Particle.io devices
 
 Clone this to `~/.config/nvim`
 
-Run the Packer quickstart install: https://github.com/wbthomason/packer.nvim
-
 Make sure to install:
 > bear: https://github.com/rizsotto/Bear
 >

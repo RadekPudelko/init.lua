@@ -1,6 +1,3 @@
---fat cursor
---vim.opt.guicursor = ""
-
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -9,20 +6,16 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
+vim.opt.showmode = false
+
 vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
--- no backups
 vim.opt.swapfile = false
 vim.opt.backup = false
--- undotree access to long running undos
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
 
-vim.opt.hlsearch = true
---Disable highlighting after search (hit enter)
-vim.keymap.set("n", "<CR>", vim.cmd.noh)
+vim.opt.hlsearch = false
 -- increment search - ex try /vim.* = and see how search increments
 vim.opt.incsearch = true
 
@@ -32,16 +25,13 @@ vim.opt.scrolloff = 12
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
-vim.opt.updatetime = 50 
+vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
-
-vim.g.mapleader = " "
 
 -- Treat .ino files as cpp
 vim.api.nvim_create_autocmd("FileType", { pattern = "arduino", command = [[set ft=cpp]] })
 
-vim.opt.pumheight = 15
+-- Max number of popup menu items
+vim.opt.pumheight = 10
 
--- File path of current buffer added to status line
-vim.opt.statusline = vim.opt.statusline + "%F"
