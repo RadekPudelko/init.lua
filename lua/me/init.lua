@@ -2,7 +2,6 @@ require("me.set")
 require("me.remap")
 require("me.lazy_init")
 
-
 local augroup = vim.api.nvim_create_augroup
 local MyGroup = augroup('MyGroup', {})
 
@@ -53,6 +52,3 @@ autocmd('LspAttach', {
     end
 })
 
-vim.g.netrw_browse_split = 0
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25

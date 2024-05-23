@@ -1,6 +1,7 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
+        "folke/neodev.nvim",
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "hrsh7th/cmp-nvim-lsp",
@@ -12,6 +13,7 @@ return {
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
     },
+
     config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
@@ -51,39 +53,35 @@ return {
                     }
                 end,
 
-
                 ["clangd"] = function()
                     local lspconfig = require("lspconfig")
                     local clangdCmd = {
                         "clangd",
                         "--background-index",
-                        "--function-arg-placeholders",
+                        "--function-arg-placeholders=1",
                         "--header-insertion=never",
-                        "--all-scopes-completion=0",
+                        "--all-scopes-completion=1",
+                        -- "--completion-style=detailed",
                     }
 
-                    -- Recursivly searches for a file starting at cwd and working up to root
-                    -- Returns path or nill
-                    local function findFile(file)
-                        local current_dir = vim.fn.getcwd()
-                        while current_dir ~= "/" do
-                            local project_file = current_dir .. "/" .. file
-                            if vim.fn.filereadable(project_file) == 1 then
-                                return project_file
-                            end
-                            current_dir = vim.fn.fnamemodify(current_dir, ":h")
-                        end
-                        return nil  -- Not found
+                    local isParticleProject = require("lspconfig.util").root_pattern("project.properties")(vim.api.nvim_buf_get_name(0)) ~= nil
+                    local isParticleDeviceOS = nil
+                    if not isParticleProject then
+                        isParticleDeviceOS = require("lspconfig.util").root_pattern("deviceOS")(vim.api.nvim_buf_get_name(0)) ~= nil
                     end
-
-                    if findFile("project.properties") then
+                    if isParticleProject or isParticleDeviceOS then
                         table.insert(clangdCmd,"--query-driver=/Users/radek/.particle/toolchains/gcc-arm/10.2.1/bin/arm-none-eabi-gcc")
                         -- table.insert(clangdCmd,"--query-driver=/Users/radek/.particle/toolchains/gcc-arm/9.2.1/bin/arm-none-eabi-gcc")
                     end
 
                     lspconfig.clangd.setup({
-                        -- cmd = { "clangd", "--background-index" },
                         cmd = clangdCmd,
+                        root_dir = function(fname)
+                            return require("lspconfig.util").root_pattern(
+                                "Makefile",
+                                "project.properties"
+                            )(fname) or require("lspconfig.util").root_pattern("compile_commands.json")(fname) or require("lspconfig.util").find_git_ancestor(fname)
+                        end,
                         filetypes = { "c", "cpp", "ino"},
                         on_attach = function(client, bufnr)
                             vim.keymap.set("n", "<leader>c", [[:ClangdSwitchSourceHeader<CR>]], {buffer=bufnr})
@@ -93,7 +91,8 @@ return {
             }
         })
 
-        local cmp_select = { behavior = cmp.SelectBehavior.Select }
+        -- local cmp_select = { behavior = cmp.SelectBehavior.Select }
+        local cmp_select = { behavior = cmp.SelectBehavior.Insert }
 
         cmp.setup({
             -- snippet = {
@@ -127,7 +126,7 @@ return {
             },
         })
 
-        -- Open floag with with leader d
+        -- Open float with with leader d
         -- TODO does this do anything?
         vim.api.nvim_set_keymap(
             'n', '<Leader>ld', ':lua vim.diagnostic.open_float()<CR>',
@@ -147,6 +146,8 @@ return {
             -- TODO: what does this do
             virtual_text = true,
         })
+
+    require("neodev").setup {}
     end
 }
 
