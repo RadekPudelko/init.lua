@@ -39,7 +39,7 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Split navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h")
@@ -54,8 +54,8 @@ vim.keymap.set("n", "<leader>2", "2gt")
 vim.keymap.set("n", "<leader>3", "3gt")
 vim.keymap.set("n", "<leader>4", "4gt")
 
--- Go error check shortcut
--- TODO, only fire on go lsp
+-- Go error check short.ut
+-- TODO, only fire on g. lsp
 vim.keymap.set(
     "n",
     "<leader>ee",
@@ -65,4 +65,13 @@ vim.keymap.set(
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+vim.keymap.set("n", "<leader>x", "<cmd>.lua<CR>", { desc = "Execute the current line" })
+vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
+
+vim.keymap.set("n", "<M-.>", "<c-W>5<")
+vim.keymap.set("n", "<M-,>", "<c-W>5>")
+vim.keymap.set("n", "<M-t>", "<C-W>+")
+vim.keymap.set("n", "<M-s>", "<C-W>-")
+vim.keymap.set("n", "<M-=>", "<C-W>=")
 
