@@ -4,9 +4,16 @@ function ColorMyPencils(color)
 
   vim.cmd.colorscheme(color)
 
-  local hex = '#161616'
+  local hex = '#121212'
   vim.api.nvim_set_hl(0, 'Normal', { bg = hex })
   vim.api.nvim_set_hl(0, 'NormalNC', { bg = hex })  -- For non-current windows, if desired
+
+  -- There should be a better way to do this
+  vim.api.nvim_set_hl(0, "NotifyDEBUGBorder", { fg = "#6e6a86", bg = "#000000" })
+  vim.api.nvim_set_hl(0, "NotifyTRACEBorder", { fg = "#c4a7e7", bg = "#000000" })
+  vim.api.nvim_set_hl(0, "NotifyINFOBorder", { fg = "#9ccfd8", bg = "#000000" })
+  vim.api.nvim_set_hl(0, "NotifyWARNBorder", { fg = "#f6c177", bg = "#000000" })
+  vim.api.nvim_set_hl(0, "NotifyERRORBorder", { fg = "#ff5f87", bg = "#000000" })
   -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
   -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
   -- vim.api.nvim_set_hl(0, 'TelescopeBorder', { link = 'Normal' })
@@ -15,6 +22,13 @@ end
 
 return {
   {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+      end
+  },
+  {
+
     "rebelot/kanagawa.nvim",
     config = function()
       require("kanagawa").setup({
@@ -80,6 +94,8 @@ return {
   },
 
   {
+    lazy = false,
+    priority = 1000,
     "rose-pine/neovim",
     name = "rose-pine",
     config = function()
