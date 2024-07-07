@@ -1,9 +1,180 @@
 return {
   'stevearc/overseer.nvim',
-  opts = {},
-  dependencies = {
-    "rcarriga/nvim-notify",
-    "stevearc/dressing.nvim",
+  opts = {
+    -- task_list = {
+    --   -- Default detail level for tasks. Can be 1-3.
+    --   default_detail = 1,
+    --   -- Width dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+    --   -- min_width and max_width can be a single value or a list of mixed integer/float types.
+    --   -- max_width = {100, 0.2} means "the lesser of 100 columns or 20% of total"
+    --   max_width = { 100, 0.2 },
+    --   -- min_width = {40, 0.1} means "the greater of 40 columns or 10% of total"
+    --   min_width = { 40, 0.1 },
+    --   -- optionally define an integer/float for the exact width of the task list
+    --   width = nil,
+    --   max_height = { 20, 0.1 },
+    --   min_height = 8,
+    --   height = nil,
+    --   -- String that separates tasks
+    --   separator = "────────────────────────────────────────",
+    --   -- Default direction. Can be "left", "right", or "bottom"
+    --   direction = "bottom",
+    --   -- Set keymap to false to remove default behavior
+    --   -- You can add custom keymaps here as well (anything vim.keymap.set accepts)
+    --   bindings = {
+    --     ["?"] = "ShowHelp",
+    --     ["g?"] = "ShowHelp",
+    --     ["<CR>"] = "RunAction",
+    --     ["<C-e>"] = "Edit",
+    --     ["o"] = "Open",
+    --     ["<C-v>"] = "OpenVsplit",
+    --     ["<C-s>"] = "OpenSplit",
+    --     ["<C-f>"] = "OpenFloat",
+    --     ["<C-q>"] = "OpenQuickFix",
+    --     ["p"] = "TogglePreview",
+    --     ["<C-l>"] = "IncreaseDetail",
+    --     ["<C-h>"] = "DecreaseDetail",
+    --     ["L"] = "IncreaseAllDetail",
+    --     ["H"] = "DecreaseAllDetail",
+    --     ["["] = "DecreaseWidth",
+    --     ["]"] = "IncreaseWidth",
+    --     ["{"] = "PrevTask",
+    --     ["}"] = "NextTask",
+    --     ["<C-k>"] = "ScrollOutputUp",
+    --     ["<C-j>"] = "ScrollOutputDown",
+    --     ["q"] = "Close",
+    --   },
+    --
+    --   win_opts = {
+    --
+    --   border = "single",
+    --
+    --   winhighlight = "Normal:Normal,FloatBorder:Normal",
+    --     winblend = 0,
+    --   },
+    --
+    -- },
+    -- actions = {
+    --   win_opts = {
+    --
+    --   winhighlight = "Normal:Normal,FloatBorder:Normal",
+    --     winblend = 0,
+    --   },
+    --
+    -- },
+    -- form = {
+    --   border = "single",
+    --   zindex = 40,
+    --   -- Dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+    --   -- min_X and max_X can be a single value or a list of mixed integer/float types.
+    --   min_width = 80,
+    --   max_width = 0.9,
+    --   width = nil,
+    --   min_height = 10,
+    --   max_height = 0.9,
+    --   height = nil,
+    --   -- Set any window options here (e.g. winhighlight)
+    --   win_opts = {
+    --
+    --   winhighlight = "Normal:Normal,FloatBorder:Normal",
+    --     winblend = 0,
+    --   },
+    -- },
+    -- task_launcher = {
+    --   -- Set keymap to false to remove default behavior
+    --   -- You can add custom keymaps here as well (anything vim.keymap.set accepts)
+    --   bindings = {
+    --     i = {
+    --       ["<C-s>"] = "Submit",
+    --       ["<C-c>"] = "Cancel",
+    --     },
+    --     n = {
+    --       ["<CR>"] = "Submit",
+    --       ["<C-s>"] = "Submit",
+    --       ["q"] = "Cancel",
+    --       ["?"] = "ShowHelp",
+    --     },
+    --   },
+    --
+    --   win_opts = {
+    --
+    --   winhighlight = "Normal:Normal,FloatBorder:Normal",
+    --     winblend = 0,
+    --   },
+    -- },
+    -- task_editor = {
+    --   -- Set keymap to false to remove default behavior
+    --   -- You can add custom keymaps here as well (anything vim.keymap.set accepts)
+    --   bindings = {
+    --     i = {
+    --       ["<CR>"] = "NextOrSubmit",
+    --       ["<C-s>"] = "Submit",
+    --       ["<Tab>"] = "Next",
+    --       ["<S-Tab>"] = "Prev",
+    --       ["<C-c>"] = "Cancel",
+    --     },
+    --     n = {
+    --       ["<CR>"] = "NextOrSubmit",
+    --       ["<C-s>"] = "Submit",
+    --       ["<Tab>"] = "Next",
+    --       ["<S-Tab>"] = "Prev",
+    --       ["q"] = "Cancel",
+    --       ["?"] = "ShowHelp",
+    --     },
+    --   },
+    --
+    --   win_opts = {
+    --
+    --   winhighlight = "Normal:Normal,FloatBorder:Normal",
+    --     winblend = 0,
+    --   },
+    -- },
+    -- -- Configure the floating window used for confirmation prompts
+    -- confirm = {
+    --   border = "single",
+    --   zindex = 40,
+    --   -- Dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+    --   -- min_X and max_X can be a single value or a list of mixed integer/float types.
+    --   min_width = 20,
+    --   max_width = 0.5,
+    --   width = nil,
+    --   min_height = 6,
+    --   max_height = 0.9,
+    --   height = nil,
+    --   -- Set any window options here (e.g. winhighlight)
+    --   win_opts = {
+    --   winhighlight = "Normal:Normal,FloatBorder:Normal",
+    --     winblend = 0,
+    --   },
+    -- },
+    -- -- Configuration for task floating windows
+    -- task_win = {
+    --   -- How much space to leave around the floating window
+    --   padding = 2,
+    --   border = "single",
+    --   -- Set any window options here (e.g. winhighlight)
+    --   win_opts = {
+    --   winhighlight = "Normal:Normal,FloatBorder:Normal",
+    --     winblend = 0,
+    --   },
+    -- },
+    -- -- Configuration for mapping help floating windows
+    -- help_win = {
+    --   border = "single",
+    --   win_opts = {
+    --
+    --   winhighlight = "Normal:Normal,FloatBorder:Normal",
+    --   },
+    -- },
+    component_aliases = {
+      default = {
+        { "display_duration", detail_level = 2 },
+        "on_output_summarize",
+        "on_exit_set_status",
+        { "on_complete_notify", system = "unfocused" },
+        { "on_complete_dispose", require_view = { "SUCCESS", "FAILURE" } },
+      },
+    },
   },
   keys = {
     { "<leader>oo", "<cmd>OverseerToggle!<CR>", mode = "n", desc = "[O]verseer [O]pen" },

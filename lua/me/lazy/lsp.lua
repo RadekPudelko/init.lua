@@ -96,6 +96,7 @@ return {
           -- there is not .partcile.json
           local lspconfig = require("lspconfig")
           local particle = require("particle")
+          -- TODO: Figure out how to load particle only when needed
           particle.setup()
 
           lspconfig.clangd.setup({
@@ -128,7 +129,6 @@ return {
 
             -- fname is full path of the buffer
             root_dir = function(fname)
-
               local type, root = particle.get_project_type(fname)
               if type ~= nil then
                 if root ~= nil then

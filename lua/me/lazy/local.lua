@@ -1,9 +1,6 @@
 return {
     "particle",
     dir="~/.config/particle.nvim",
-    dependencies = {
-        "MunifTanjim/nui.nvim"
-    },
     -- 'RadekPudelko/particle.nvim'
     config = function()
         -- local particle = require("particle")
