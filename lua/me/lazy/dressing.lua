@@ -16,6 +16,7 @@ return {
         --   winhighlight = "Normal:Normal,FloatBorder:Normal",
         -- },
         backend = { "telescope", "nui" },
+        -- telescope = nil,
         -- backend = { "nui" },
         nui = {
           -- position = "50%",
