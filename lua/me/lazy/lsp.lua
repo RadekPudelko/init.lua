@@ -47,8 +47,7 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
-        "~/.config/particle.nvim",
-        -- "RadekPudelko/particle"
+        dir = "~/.config/particle.nvim",
     },
 
     config = function()
