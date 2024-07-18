@@ -8,7 +8,7 @@ return {
       log = {
         {
           type = "echo",
-          level = vim.log.levels.WARN,
+          level = vim.log.levels.DEBUG,
         },
         {
           type = "file",
@@ -17,5 +17,8 @@ return {
         }
       }
     })
+
+    vim.keymap.set("n", "<leader><leader>p", ":Particle<CR>", { nowait=false, noremap=true, silent=true, desc = "Launch Particle.nvim local project configuration" })
   end
+
 }
