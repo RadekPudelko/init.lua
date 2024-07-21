@@ -76,7 +76,6 @@ return {
                 -- "--completion-style=detailed",
               }
               local type, root = particle.get_project_type(vim.api.nvim_buf_get_name(0))
-              -- print(type, root)
               if type ~= nil then
                 local query_driver = particle.get_query_driver()
                 if query_driver ~= nil then
