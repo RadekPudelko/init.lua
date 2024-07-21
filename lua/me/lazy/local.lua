@@ -1,6 +1,7 @@
 return {
   "particle",
   dir="~/.config/particle.nvim",
+  priority = 999,
   -- "RadekPudelko/particle.nvim",
   config = function()
     local particle = require("particle")
